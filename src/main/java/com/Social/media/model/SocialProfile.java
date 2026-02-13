@@ -9,5 +9,6 @@ public class SocialProfile {
     private Long userID;
 
     @OneToOne
+    @JoinColumn(name = "Profile_ID")
     private SocialUser socialUser;
 }

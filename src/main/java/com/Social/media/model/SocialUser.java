@@ -1,12 +1,17 @@
 package com.Social.media.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SocialUser {
 
     @Id
@@ -17,7 +22,7 @@ public class SocialUser {
     private SocialProfile socialProfile;
 
     @OneToMany(mappedBy = "socialUser")
-    private List<UserPost>  userPosts;
+    private List<UserPost>  userPosts =  new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -25,5 +30,10 @@ public class SocialUser {
             , joinColumns = @JoinColumn(name="user_ids")
             , inverseJoinColumns = @JoinColumn(name ="group_id")
     )
-    private Set<SocialGroup> socialGroups;
+    private Set<SocialGroup> socialGroups = new HashSet<>() ;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

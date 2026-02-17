@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.*;
 
+import static jakarta.persistence.CascadeType.*;
+
 
 @Entity
 @Data
@@ -18,10 +20,10 @@ public class SocialUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "socialUser", cascade = CascadeType.ALL )
+    @OneToOne(mappedBy = "socialUser", cascade = ALL )
     private SocialProfile socialProfile;
 
-    @OneToMany(mappedBy = "socialUser")
+    @OneToMany(mappedBy = "socialUser" ,cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     private List<UserPost>  userPosts =  new ArrayList<>();
 
     @ManyToMany
